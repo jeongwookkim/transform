@@ -1,26 +1,44 @@
 tenThousandPos = 4
 # 억 단위 자릿수
 hundredMillionPos = 9
-txtDigit = ['', '십', '백', '천', '만', '억']
+txtDigit = ['', '십 ', '백 ', '천 ', '만 ', '억 ']
 txtNumber = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']
 txtPoint = ' 점 '
-txtEnglish = ' 영어다! '
+txtEnglish = ['에이','비','씨','디','이','에프','지','에이치','아이','제이','케이','엘','엠','엔','오','피','큐','알','에스','티','유','브이','더블유','엑스','와이','제트']
 
-#def texttrans(strNum):
+
+#def texttrans(input):
     #resultStr = ''
 
-def digit2txt(strNum):
+def digit2txt(input):
     resultStr = ''
     digitCount = 0
-    print(strNum)
+    print(input)
     #자릿수 카운트
+    #TODO : 여기 밑에서는 오직 문자열만 잇을 때 들어가도록 구현
+# input 이라는 것을 순환 하면서 숫자는 숫자로 영어는 영어로
+    concatstr = ""
+    for character in input:
 
+        if ord('a') <= ord(character) and  ord(character) <= ord('z'):
+            # index txtEnglish
+            concatstr += txtEnglish[ord(character) - ord('a')]
+        
+        elif ord('A') <= ord(character) and  ord(character) <= ord('Z'):
+            # index txtEnglish
+            concatstr +=  txtEnglish[ord(character) - ord('A')]
+   
+    return '({0})/({1})'.format(input, concatstr)
+
+        
+
+    #TODO : 여기 밑에서는 오직 숫자만 잇을 때 들어가도록 구현
     #for ch in str:
         #if ch == 'a':
             #break
             #resultStr = txtEnglish
 
-    for ch in strNum:
+    for ch in input:
         # ',' 무시
         if ch == ',':
             continue
@@ -35,22 +53,17 @@ def digit2txt(strNum):
 
     while True:
         notShowDigit = False
-        ch = strNum[index]
+        ch = input[index]
         #print(str(index) + ' ' + ch + ' ' +str(digitCount))
         # ',' 무시
         if ch == ',':
             index = index + 1
-            if index >= len(strNum):
+            if index >= len(input):
                 break;
             continue
         
-
-        ###
-        if ch == 'a':
-            resultStr = txtEnglish
-            break;
-
-
+ 
+    
         if ch == '.':
             resultStr = resultStr + txtPoint
         else:
@@ -84,21 +97,12 @@ def digit2txt(strNum):
         else:
             digitCount = digitCount - 1
         index = index + 1
-        if index >= len(strNum):
+        if index >= len(input):
             break;
-    print(resultStr)
+    #print('('+ result + ')/(' + resultStr +')'+ '\n')
+    return '({0})/({1})'.format(input, resultStr)
+    
 
-
-if __name__ == '__main__':
-
-    digit2txt("21,560,000.83")
-    digit2txt("14")
-    digit2txt("1")
-    digit2txt("267")
-    digit2txt("2214.4")
-    digit2txt("244")
-    digit2txt("17.4")
-    digit2txt("a")
 
 
     
